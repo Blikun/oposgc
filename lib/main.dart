@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.indigo,
       ),
-      home: WelcomeScreen(),  // NAVEGADOR SPLASH_SCREEN
+      home: WelcomeScreen(),  /// NAVEGADOR A SPLASH_SCREEN
     );
   }
 }
