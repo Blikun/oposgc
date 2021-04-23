@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "931075513786",
+    "firebase_url": "https://opositestgc.firebaseio.com",
+    "project_id": "opositestgc",
+    "storage_bucket": "opositestgc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:931075513786:android:cb5a35b6a0ba8d769b1183",
+        "android_client_info": {
+          "package_name": "com.example.TestsOposicionesGuardiacivil"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "931075513786-0utu9mrk8hb3lq8p3liusdrpisnhhs2v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.TestsOposicionesGuardiacivil",
+            "certificate_hash": "981af966047eb0261e94f9411699af1fc8ef64ef"
+          }
+        },
+        {
+          "client_id": "931075513786-177u0moet4fve2hlqefo6r6475p534va.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYV4OfcKvCubrkxl_nBmBBlSNDXR8zh_I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "931075513786-177u0moet4fve2hlqefo6r6475p534va.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

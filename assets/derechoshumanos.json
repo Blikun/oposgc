@@ -1,0 +1,179 @@
+
+[
+  {
+    "0": "Tema 1 - Derechos Humanos",
+    "1": "En relación con los miembros que integran el Comité contra la Tortura \n(Señale la respuesta incorrecta)",
+    "2": "¿Cuál es la composición del Consejo Económico y Social de las Naciones Unidas?",
+    "3": "¿Cuáles son los objetivos básicos del régimen de Administración Fiduciaria?",
+    "4": "La Asamblea General de la ONU recibirá provenientes del Consejo de Seguridad",
+    "5": "En el Tribunal Europeo de Derechos Humanos el plazo para recurrir las decisiones de inadmisibilidad es de",
+    "6": "¿Cuál de los siguientes instrumentos recoge expresamente la integración de personas discapacitadas?",
+    "7": "Señale la respuesta incorrecta en relación con el Consejo de Derechos Humanos de la ONU",
+    "8": "Dentro de los principios de derecho penal de la Corte Penal Internacional, encontramos las siguientes circunstancias eximentes de responsabilidad penal:\n(señale la incorrecta)",
+    "9": "¿Qué medidas adicionales se toman en el Protocolo Facultativo de la Convención contra la Tortura?",
+    "10": "Dentro del Protocolo Facultativo de la Convención contra la Tortura se consideran lugares de detención:",
+    "11": "La Carta Social Europea consta de",
+    "12": "En el Tribunal Europeo de Derechos Humanos podrán tomar sobre la admisibilidad y el fondo del asunto cuando ya exista jurisprudencia consolidada",
+    "13": "El Tribunal Europeo de Derechos Humanos está formado por",
+    "14": "Quien puede restituir los derechos y privilegios de los que ha sido suspendido un miembro de la ONU",
+    "15": "En relación con la firma y ratificación de instrumentos internacionales en materia de Derechos Humanos señale la respuesta correcta sobre el Estado español:",
+    "16": "Será invitado a participar en el Consejo de Seguridad de la ONU cuando sea parte de una controversia que se esté discutiendo",
+    "17": "El funcionamiento del Consejo de Administración Fiduciaria se regirá bajo el siguiente procedimiento",
+    "18": "¿Cuándo se firmó la Carta de las Naciones Unidas?",
+    "19": "¿Cómo se adoptan las decisiones del Consejo de Seguridad en cuestiones de procedimiento?",
+    "20": "En el Tribunal Penal Internacional, la investigación de los hechos que fueran constitutivos de delito, se puede iniciar:\n(señale la incorrecta)"
+
+
+  },
+  {
+  "0": {
+    "a": " ",
+    "b": " ",
+    "c": " ",
+    "d": " "
+  },
+  "1": {
+    "a": "Los miembros del Comité son elegidos en reuniones cada cuatro años de los Estados Partes convocados por la Asamblea General de las Naciones Unidas",
+    "b": "El Comité contra la Tortura está compuesto por diez expertos de gran integridad moral",
+    "c": "Los miembros del Comité son elegidos en votación secreta de una lista de personas designadas por los Estados Parte",
+    "d": "Los miembros pueden ser reelegidos si se presenta de nuevo su candidatura"
+  },
+  "2": {
+    "a": "El Consejo Económico y Social está compuesto por quince miembros de las Naciones Unidas. Cinco tienen carácter permanente. La Asamblea General elegirá otros diez miembros",
+    "b": "El Consejo Económico y Social está integrado por 54 miembros de las Naciones Unidas elegidos por la Asamblea General",
+    "c": "El Consejo Económico y Social se compondrá de un Secretario General y del personal que requiera la organización",
+    "d": "El Consejo Económico y Social estará integrado por 18 miembros elegidos por un periodo de tres años"
+  },
+  "3": {
+    "a": "Desarrollar el Gobierno propio, a tender debidamente en cuenta las aspiraciones políticas de los pueblos, y a ayudarlos en el desenvolvimiento progresivo de sus instituciones políticas, entre otros",
+    "b": "Fomentar la paz y la seguridad, promover el respeto a los Derechos Humanos; promover el adelanto político, económico y educativo de los territorios fideicomitidos y promover medidas de desarrollo y estímulo de la investigación",
+    "c": "Fomentar la paz y la seguridad internacionales, el respeto a los derechos humanos, entre otros",
+    "d": "Asegurar el tratamiento igual para todos los Miembros de Naciones Unidas y sus naciones en materia de carácter social y cooperar unos con otros, cuando fuere necesario, con organismos especializados"
+  },
+  "4": {
+    "a": "Informes ordinarios y extraordinarios",
+    "b": "Informes ordinarios y especiales",
+    "c": "Informes anuales y especiales",
+    "d": "Informes anuales y urgentes"
+  },
+  "5": {
+    "a": "Un mes",
+    "b": "Tres meses",
+    "c": "Seis meses",
+    "d": "Ninguna de las anteriores es correcta"
+  },
+  "6": {
+    "a": "Pacto Internacional sobre Derechos civiles y políticos",
+    "b": "La Declaración Universal de Derechos Humanos",
+    "c": "La Carta de los Derechos Fundamentales de la Unión Europea",
+    "d": "La Carta Social Europea"
+  },
+  "7": {
+    "a": "Está integrado por 18 miembros, que deben ser nacionales de los Estados Parte en el Pacto Internacionales sobre derechos civiles y políticos",
+    "b": "Tiene su sede en Ginebra y es un órgano subsidiario de la Asamblea General de Naciones Unidas",
+    "c": "Los miembros son elegidos por periodos de tres años con la posibilidad de una reelección consecutiva",
+    "d": "Se crea por Resolución de la Asamblea General con el propósito de promover el respeto universal a la protección de todos los derechos humanos"
+  },
+  "8": {
+    "a": "Enfermedad o deficiencia mental",
+    "b": "Comisión del crimen como consecuencia del cumplimiento de una orden",
+    "c": "Estado de intoxicación",
+    "d": "Defensa propia"
+  },
+  "9": {
+    "a": "Que todos Estado Parte velará porque toda persona que alegue haber sido sometida a tortura tenga derecho a que sea imparcialmente examinado por las autoridades competentes",
+    "b": "Que en ningún Estado Parte procederá a la expulsión, devolución o extradición de una persona cuando hay razones fundadas para creer que estará en peligro de ser sometida a torturas",
+    "c": "Que todo Estado Parte velará porque su legislación garantice a las víctimas de la tortura el derecho a una indemnización justa y adecuada",
+    "d": "Que todo Estado Parte tomará medidas legislativas, administrativas o judiciales o de otra índole, eficaces para impedir actos de tortura en todo territorio que esté bajo su jurisdicción"
+  },
+  "10": {
+    "a": "Lugares de detención administrativa",
+    "b": "Centros penales para sentenciados",
+    "c": "Centros de confinamiento para inmigrantes",
+    "d": "Todas son correctas"
+  },
+  "11": {
+    "a": "Un Preámbulo y 30 artículos",
+    "b": "38 artículos repartidos en cinco apartados y un anexo, se complementa con un Protocolo Adicional",
+    "c": "Un Preámbulo, 3 Títulos, 59 artículos, completados por 16 Protocolos Adicionales",
+    "d": "Un Preámbulo, 53 artículos divididos en 6 apartados y 2 Protocolos Facultativos"
+  },
+  "12": {
+    "a": "El Comité de tres jueces",
+    "b": "La Sala de siete jueces",
+    "c": "La Gran sala de 17 jueces",
+    "d": "Ninguna de las anteriores"
+  },
+  "13": {
+    "a": "Un Juez por cada Estado Miembro asistido por 11 Abogados Generales",
+    "b": "Un Presidente, 18 Magistrados, un Fiscal, un Secretario",
+    "c": "Un número de jueces igual al de los Estados Contratantes por un mandato de 9 años renovable",
+    "d": "Un Juez por cada Estado Miembro, por mandato de 6 años renovable"
+  },
+  "14": {
+    "a": "El Secretario General",
+    "b": "La Asamblea General",
+    "c": "El Consejo de Seguridad",
+    "d": "Ninguno de las anteriores"
+  },
+  "15": {
+    "a": "El Estado español es miembro originario de las Naciones Unidas, de conformidad con lo previsto en el artículo 3 de la Carta de las Naciones Unidas",
+    "b": "España no ha ratificado el Protocolo Adicional a la Carta Social Europea",
+    "c": "España ratificó el Convenio Europeo para la protección de los Derechos Humanos y Libertades Fundamentales, sin ninguna reserva",
+    "d": "España ratificó el Pacto Internacional de Derechos económicos, sociales y culturales el 27 de julio de 1977"
+  },
+  "16": {
+    "a": "El Miembro de las Naciones Unidas que no tenga asiento en el Consejo de Seguridad o el Estado que no sea miembro, en ambos casos con voz pero solo el primero tendrá derecho a voto",
+    "b": "El Miembro de las Naciones Unidas que no tenga asiento en el Consejo de Seguridad o el Estado que no sea miembro, en ambos casos con voz pero sin voto",
+    "c": "El Miembro de las Naciones Unidas que no tenga asiento en el Consejo de Seguridad , con voz pero sin voto",
+    "d": "El Miembro de las Naciones Unidas que no tenga asiento en el Consejo de Seguridad , con voz y voto"
+  },
+  "17": {
+    "a": "Se reunirá cuando sea necesario, según reglamento. Este contendrá disposiciones sobre convocación del Consejo a solicitud de la mayoría de sus miembros",
+    "b": "El Consejo de Administración Fiduciaria será organizados de modo que pueda funcionar continuamente",
+    "c": "El Consejo de Administración Fiduciaria se valdrá de la ayuda del Consejo de Seguridad y de los organismos especializados para su correcto funcionamiento",
+    "d": "El Consejo de Administración Fiduciaria establecerá comisiones de orden económico y social y para las promociones de Derechos Humanos"
+  },
+  "18": {
+    "a": "10 de octubre de 1948",
+    "b": "26 de junio de 1945",
+    "c": "4 de noviembre de 1950",
+    "d": "24 de octubre de 1945"
+  },
+  "19": {
+    "a": "Por el voto afirmativo de nueve miembros",
+    "b": "Por el voto afirmativo de nueve miembros, incluidos los votos afirmativos de todos los Miembros Permanentes",
+    "c": "Por votación de la mayoría de los miembros presentes y votantes",
+    "d": "Ninguna de las anteriores es correcta"
+  },
+  "20": {
+    "a": "Por remisión de un Estado Parte a la Corte de una situación particular",
+    "b": "De Oficio por el Fiscal de la Corte",
+    "c": "Por solicitud de la Asamblea General de la ONU",
+    "d": "Por solicitud del Consejo de Seguridad de la ONU"
+  }
+},
+  {
+    "0": "",
+    "1": "Los miembros del Comité son elegidos en reuniones cada cuatro años de los Estados Partes convocados por la Asamblea General de las Naciones Unidas",
+    "2": "El Consejo Económico y Social está integrado por 54 miembros de las Naciones Unidas elegidos por la Asamblea General",
+    "3": "Fomentar la paz y la seguridad internacionales, el respeto a los derechos humanos, entre otros",
+    "4": "Informes anuales y especiales",
+    "5": "Ninguna de las anteriores es correcta",
+    "6": "La Carta de los Derechos Fundamentales de la Unión Europea",
+    "7": "Está integrado por 18 miembros, que deben ser nacionales de los Estados Parte en el Pacto Internacionales sobre derechos civiles y políticos",
+    "8": "Comisión del crimen como consecuencia del cumplimiento de una orden",
+    "9": "Que todo Estado Parte tomará medidas legislativas, administrativas o judiciales o de otra índole, eficaces para impedir actor de tortura en todo territorio que esté bajo su jurisdicción",
+    "10": "Todas son correctas",
+    "11": "38 artículos repartidos en cinco apartados y un anexo, se complementa con un Protocolo Adicional",
+    "12": "El Comité de tres jueces",
+    "13": "Un número de jueces igual al de los Estados Contratantes por un mandato de 9 años renovable",
+    "14": "El Consejo de Seguridad",
+    "15": "España no ha ratificado el Protocolo Adicional a la Carta Social Europea",
+    "16": "El Miembro de las Naciones Unidas que no tenga asiento en el Consejo de Seguridad o el Estado que no sea miembro, en ambos casos con voz pero sin voto",
+    "17": "Se reunirá cuando sea necesario, según reglamento. Este contendrá disposiciones sobre convocación del Consejo a solicitud de la mayoría de sus miembros",
+    "18": "26 de junio de 1945",
+    "19": "Por el voto afirmativo de nueve miembros",
+    "20": "Por solicitud de la Asamblea General de la ONU"
+  }
+]
