@@ -58,6 +58,7 @@ class HomeScreen extends StatelessWidget {
                           nombre_tema: "1 · Derechos Humanos",
                           tipo_tema: "Bloque único",
                           tema: "derechoshumanos",
+                          id: 1,
                           pressDetails: () {
                             Navigator.push(
                               context,
@@ -74,12 +75,14 @@ class HomeScreen extends StatelessWidget {
                           nombre_tema: "2 · Igualdad",
                           tipo_tema: "Bloque único",
                           tema: "igualdad",
+                          id: 2,
                         ),
                         TarjetaTema(
                           portada: "images/book-2.png",
-                          nombre_tema: "3 · Inglés",
+                          nombre_tema: "3 · Prevencion R.L.",
                           tipo_tema: "Bloque único",
-                          tema: "ingles",
+                          tema: "prevencionriesgoslaborales",
+                          id: 3,
                         ),
 
                         SizedBox(width: 30),

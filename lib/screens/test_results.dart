@@ -17,7 +17,7 @@ class testResults extends StatefulWidget {
   int nocontestadas;
   int fallos;
   int t1;
-  int t2;
+  int t2;//todo: hacer que solo el primer tema sea requerido y el resto opcionales
   int t3;
   var random_array;
   var eleccion;
@@ -65,15 +65,15 @@ class HorizontalBarLabelChart extends StatelessWidget {
   /// valores grafico de barras inferior ///
   static List<charts.Series<ranking, String>> _createSampleData() {
     final data = [
-       ranking('Derechos humanos', t2),
-       ranking('Derecho penal', t3),
-       ranking('Inglés', t1),
-       ranking('D. Penal procesal', 0),
-       ranking('Igualdad', 0),
-       ranking('Consitución Española', 0),
-       ranking('Derecho civil', 0),
-       ranking('Europa', 0),
-       ranking('Derecho policial', 0),
+       ranking('Derechos humanos', 15),
+       ranking('Derecho penal', 13),
+       ranking('Inglés', 3),
+       ranking('D. Penal procesal', 21),
+       ranking('Igualdad', 15),
+       ranking('Consitución Española', 16),
+       ranking('Derecho civil', 7),
+       ranking('Europa', 10),
+       ranking('Derecho policial', 18),
     ];
 
     return [
@@ -83,7 +83,7 @@ class HorizontalBarLabelChart extends StatelessWidget {
           measureFn: (ranking puntos, _) => puntos.puntos,
           data: data,
 
-          colorFn: (_, __) => charts.MaterialPalette.green.shadeDefault,
+          colorFn: (_, __) => charts.MaterialPalette.gray.shadeDefault,
 
           labelAccessorFn: (ranking puntos, _) =>
           '${puntos.tema}')
@@ -246,6 +246,7 @@ class _testResultsState extends State<testResults> {
     var screen = MediaQuery.of(context).size;
     var wid = screen.width;
     var hei = screen.height;
+    total = random_array.length;
 
 
     return Scaffold(
@@ -255,19 +256,19 @@ class _testResultsState extends State<testResults> {
             flex: 9,
             child: Material(
               child: Container(
-                ///TODO: Poner fondo resultón
-                //color: Colors.red,
-                padding: EdgeInsets.fromLTRB(0, hei * 0.015, 0, 0),
+
+                color: Colors.white,
+                padding: EdgeInsets.fromLTRB(0, hei * 0.05, 0, 0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                    Material(
-                        child: Container( /// Gauge Chart
+                    Container( /// Gauge Chart
                           decoration: BoxDecoration(
-                              //color: Colors.grey[800],
-                              //borderRadius: BorderRadius.all(Radius.circular(15))
+
+                            color: Colors.white,
+                              borderRadius: BorderRadius.all(Radius.circular(15))
                           ),
-                          width: wid,
+                          width: wid * 0.92,
                           height: hei * 0.40,
                           child: Stack(children: <Widget>[
                             GaugeChart.fromValue(
@@ -354,20 +355,29 @@ class _testResultsState extends State<testResults> {
                               ]),
                             ),
                           ]),
-                        )
-                    ),
+                        ),
+
                     Padding(
                       padding: EdgeInsets.symmetric(
                         vertical: hei * 0.01,
                         horizontal: wid * 0.04,
                       ),
                       child: Center(
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(0, hei * 0.05 , 0, 0),
                           child: Container(
                             width: wid,
                             height: hei * 0.32,
                             child: HorizontalBarLabelChart.withSampleData(),
                             padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
                             decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    offset: Offset(0, 10),
+                                    blurRadius: 33,
+                                    color: Color(0xFFD3D3D3).withOpacity(.84),
+                                  ),
+                                ],
                                 color: Colors.grey[300],
                                 borderRadius: BorderRadius.all(Radius.circular(15))
                             ),
@@ -377,6 +387,7 @@ class _testResultsState extends State<testResults> {
                             ),
                           )
                         ),
+                        ),
                       ),
                   ],
                 ),
@@ -385,7 +396,10 @@ class _testResultsState extends State<testResults> {
           ),
           Expanded(
             flex: 1,
-            child: Material( /// botones
+            child: Container( /// botones
+              decoration: BoxDecoration(
+                  color: Color.fromARGB(255, 0, 115, 80)
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[

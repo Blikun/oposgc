@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:opos/screens/home_screen.dart';
 import 'package:opos/widgets/rounded_button.dart';
 
-/// ESTA CLASE MUESTRA EL SPLASH AL ABRIR LA APP Y ESPERA AL CLIC PARA CONTINUAR NAVEGANDO A HOME_SCREEN ///
+/// SPLASH AL ABRIR LA APP Y CONTINUAR NAVEGANDO A HOME_SCREEN ///
 class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

@@ -47,7 +47,7 @@ class multitest extends StatelessWidget {
     Map<String, String> nameArray = {
       "derechos": "assets/derechoshumanos.json",
       "Examen": "assets/Examen.json",
-      "penal": "assets/penal.json",
+      "penal": "assets/derechopenal.json",
       "ingles": "assets/ingles.json",
       "Constitución Española": "assets/constitucion.json",
     };
@@ -460,10 +460,6 @@ class _testpageState extends State<testpage> {
       await prefs.setString('pause_choicemade', choicemade);
       print("$pause_choicemade");
 
-
-
-
-
       Navigator.of(context)
           .pushReplacement(MaterialPageRoute(
         builder: (context) => HomeScreen(
@@ -840,8 +836,6 @@ class _pagemake extends State<pagemake> {
   Widget space(int flex) {
     return Expanded(flex: flex, child: Container());
   } //espaciador
-
-
 
   Widget build(BuildContext context) {
     var screen = MediaQuery.of(context).size;

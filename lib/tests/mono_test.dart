@@ -7,213 +7,180 @@ import 'package:flutter/material.dart';
 import 'package:opos/screens/test_results.dart';
 import 'package:opos/screens/home_screen.dart';
 
+import '../constants.dart';
 
-
-var kText = Colors.grey[800];
-var kTextCorrect = Colors.lightGreen[900];
-var kTextWrong = Colors.red[900];
-var kTextoff = Colors.grey[400];
-var colortoshow = Colors.grey[800];
-int marks;
-int t1;
-int t2;
-int t3;
-int fails;
-int answered;
-bool absorb;
-int randomMax;
-int min;
-bool autocorrect;
-var random_array;
-var choicemade;
-var btnmap;
-
-
+int puntos_tema_1=0;
+int t2; //inutil
+int t3; //inutil
+int tiempo=60;
+int aciertos=0;
+int errores=0;
+int contestadas=0;   //todo: implementar el contador, el problema es que es un setsate de otro widget, con un callback? hay que ver eso.
+int total_preguntas=15;
+bool boton_bloqueado = false;
+var random_array = null;
+bool revelar_correcta = false;
+var respuestas_usuario;
+var opciones_respuesta;
 
 class monotest extends StatelessWidget {
-
-  String reveal;
+  var reveal;
+  var id;
   String name;
-  monotest(this.name, this.reveal);
-  String jsonfile;
+  var multiple;
 
+  monotest(this.name,  this.id, this.reveal, this.multiple);
+
+  String jsonfile;
+  String jsonfile2;
+  String jsonfile3;
+  var tema1;
+  var tema2;
+  var tema3;
 
   setasset() {
-
-    Map<String, String> nameArray = {
-      "derechoshumanos": "assets/derechoshumanos.json",
-      "Examen": "assets/Examen.json",
-      "igualdad": "assets/igualdad.json",
-      "derechopenal": "assets/penal.json",
-      "ingles": "assets/ingles.json",
-      "Constitución Española": "assets/constitucion.json",
+    Map<int,String> temas ={
+      1:"assets/derechoshumanos.json",
+      2:"assets/igualdad.json",
+      3:"assets/prevencionriesgoslaborales.json",
+      4:"assets/constitucion.json",
+      5:"assets/defensorpueblo.json",
+      6:"assets/tratadounioneuropea.json",
+      7:"assets/funcionamientounioneuropea.json",
+      8:"assets/institucionesinternacionales.json",
+      9:"assets/derechocivil.json",
+      10:"assets/derechopenal.json",
+      11:"assets/leyenjuiciamientocriminal.json",
+      12:"assets/leyorganicahabeascorpus.json",
+      13:"assets/leyorganicapoderjudicial.json",
+      14:"assets/policiajudicial.json",
+      15:"assets/ley392015.json",
+      16:"assets/ley402015.json"
     };
+    jsonfile = temas[1];
+    jsonfile2 = temas[2];
+    jsonfile3 = temas[3];
+  }
 
-    jsonfile = nameArray[name];
-
-
-
-    marks = 0;
-    t1 = 0;
-    t2 = 0;
-    t3 = 0;
-    fails = 0;
-    answered = 0;
-    absorb = false;
-    randomMax = 15;
-    min = 60;
-    autocorrect = false;
-    random_array = null;
-
-    if (reveal == "reveal"){
-      autocorrect = true;
-    };
-
-    if (reveal == "unreveal"){
-      autocorrect = false;
-    };
-
-    choicemade = {
-      for (var i = 0; i < 15; i++,)
+  resetBotones(){
+    opciones_respuesta = {  // MAP CON LOS COLORES DE CADA BOTON DE RESPUESTA
+      for (var i = 0; i < 100; i++,)  // el numero que se crea es 100
         '$i': {
-          "choice": "no",
-        }
-    };
-    btnmap = {
-      for (var i = 0; i < 100; i++,)
-        '$i': {
-          "a": Colors.grey[800],
-          "b": Colors.grey[800],
-          "c": Colors.grey[800],
-          "d": Colors.grey[800],
-          "s": false,
-
+          "a": color_standard,
+          "b": color_standard,
+          "c": color_standard,
+          "d": color_standard,
+          "s": false,  //si el boton esta desactivado es true
         },
       for (var u = 0; u < 100; u++,)
         '_$u': {
-          "a": Colors.grey[800].withOpacity(0),
-          "b": Colors.grey[800].withOpacity(0),
-          "c": Colors.grey[800].withOpacity(0),
-          "d": Colors.grey[800].withOpacity(0),
-          "s": false,
-
+          "a": color_standard.withOpacity(0),
+          "b": color_standard.withOpacity(0),
+          "c": color_standard.withOpacity(0),
+          "d": color_standard.withOpacity(0),
+          "s": false,  //si el boton esta desactivado es true
         },
     };
-  } // Obtener JSON segun <name>
+  }
+  nuevoTest(){
+    tiempo = 60; //reset tiempo
+    aciertos=0; //reset puntos
+    errores=0; //reset puntos
+    contestadas=0; //reset puntos
+    var preguntasMax = total_preguntas;
 
-
+    if(multiple==true){
+      preguntasMax = 20;
+    }else{
+      preguntasMax = total_preguntas;
+    };
+    respuestas_usuario = {
+      for (var i = 0; i < preguntasMax; i++,)
+        '$i': {  // CREAR ARRAY PARA ALMACENAR LAS RESPUESTAS Y MARCAR TODAS "NO CONTESTADO"
+          "choice": "no",
+        }
+    };
+  }
 
   @override
-
   Widget build(BuildContext context) {
-    var screen = MediaQuery.of(context).size;
-    var wid = screen.width;
-    var hei = screen.height;
-    setasset();
-    debugPrint("builder monotest ");
-    debugPrint("$name");
+    revelar_correcta = reveal;
+    setasset(); //selector de json
+    resetBotones(); //reset necesario para re-pintar en blanco los botones de respuesta
+    nuevoTest();  //resets necesarios para borrar los ultimos resultados y el tiempo
 
-    return FutureBuilder(
-      future:
-      DefaultAssetBundle.of(context).loadString(jsonfile, cache: true),
-      builder: (context, snapshot) {
-        List mydata = json.decode(snapshot.data.toString());
-        if (mydata == null) {
-           return Scaffold(
-              body: Center(
-                child: Container(
-                  height: 80,
-                  width: wid * .6,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(38.5),
-                    boxShadow: [
-                      BoxShadow(
-                        offset: Offset(0, 10),
-                        blurRadius: 33,
-                        color: Color(0xFFD3D3D3).withOpacity(.84),
-                      ),
-                    ],
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(38.5),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Expanded(
-                            child: Padding(
-                              padding:
-                              EdgeInsets.only(left: 30, right: 20),
-                              child: Row(
-                                children: <Widget>[
-                                  Expanded(
-                                    child: Column(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.end,
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Text(
-                                          "   Cargando...",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        Align(
-                                          alignment:
-                                          Alignment.bottomRight,
-                                        ),
-                                        SizedBox(height: 5),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Container(
-                            height: 8,
-                            width: wid * .80,
-                            decoration: BoxDecoration(
-                              color: Color.fromARGB(255, 0, 115, 80),
-                              borderRadius: BorderRadius.circular(7),
-                            ),
-                          ),
-                        ]),
-                  ),
-                ),
-              ));
-        } else {
-          return monotestpage(mydata: mydata, name: name);
-        }
-      },
-    );
-                }
+
+    Future cargar(preguntasJson) async{
+      String jsonString = await DefaultAssetBundle.of(context).loadString(preguntasJson, cache: true);
+      tema1 = json.decode(jsonString);
+      print(tema1);
+      return tema1;
+    };
+
+    Future cargaMultiple() async{
+      String jsonString = await DefaultAssetBundle.of(context).loadString(jsonfile, cache: true);
+      tema1 = json.decode(jsonString);
+      print(tema1);
+      String jsonString2 = await DefaultAssetBundle.of(context).loadString(jsonfile2, cache: true);
+      tema2 = json.decode(jsonString2);
+      print(tema2);
+      String jsonString3 = await DefaultAssetBundle.of(context).loadString(jsonfile3, cache: true);
+      tema3 = json.decode(jsonString3);
+      print(tema3);
+      return true;
+    };
+
+
+    if(multiple == false){
+      return FutureBuilder(
+        future:
+        cargar(jsonfile),
+        builder: (context, snapshot) {
+          if (tema1 == null) {
+            return Scaffold(); //PANTALLA DE CARGA MIENTRAS NO HAY DATOS
+          } else {
+            print("test simple");
+            return monotestpage(mydata: tema1, name: name, multiple: multiple); //ME VOY AL TEST CON LOS DATOS (name no importa)
           }
-  // Leer JSON Pantalla de carga > return testpage(mydata: mydata);
- // Leer y abrir JSON > mydata.
+        },
+      );
+    }else{
+      return FutureBuilder(
+        future:
+        cargaMultiple(),
+        builder: (context, snapshot) {
+          if (tema3 == null) {
+            return Scaffold(); //PANTALLA DE CARGA MIENTRAS NO HAY DATOS
+          } else {
+            print("test multiple"); ///todo: hacer que genere 1 json con todo el test dentro y se acabó no jodas
+            return monotestpage(mydata: tema1, mydata2: tema2, name: name, multiple: multiple); //ME VOY AL TEST CON LOS DATOS (name no importa)
+          }
+        },
+      );
+    };
+  }
+}
 
 class monotestpage extends StatefulWidget {
+  var multiple;
   var mydata;
+  var mydata2;
   String name;
-
-  monotestpage({Key key, @required this.mydata, this.name,}) : super(key: key);
-
+  monotestpage({Key key, this.multiple, this.mydata, this.name, this.mydata2,}) : super(key: key);
   @override
-  _monotestpageState createState() => _monotestpageState(mydata, name);
-} //importar mydata a _testpageState
+  _monotestpageState createState() => _monotestpageState(multiple, name, mydata, mydata2,);
+} 
 
 class _monotestpageState extends State<monotestpage> {
+  var multiple;
   var mydata;
+  var mydata2;
   var name;
   var random_array;
   int j = 1;
   int count = 0;
 
-
-  var guardia = Color.fromARGB(255, 0, 115, 80);
-
-  _monotestpageState(this.mydata, this.name);
+  _monotestpageState(this.multiple,  this.name, this.mydata, this.mydata2);
 
   @override
   Widget build(BuildContext context) {
@@ -221,37 +188,22 @@ class _monotestpageState extends State<monotestpage> {
     var wid = screen.width;
     var hei = screen.height;
 
-    void inicio() {
+    void inicio() {///genera numeros aleatorios no repetidos en un rango para elegir las preguntas que va a tener el test.
 
-      if (min <= 0){
-        Timer(Duration(milliseconds: 50), () {
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-              builder: (BuildContext context) => testResults(
-                name: name,
-                aciertos: marks,
-                total: randomMax,
-                fallos: fails,
-                t1: 0,
-                t2: 0,
-                t3: 0,
-                random_array: random_array,
-                eleccion: choicemade,
-              ),
-            ),
-                (route) => false,
-          );
-        });
-      }
+      var preguntasMax = total_preguntas;
+      if(multiple==true){
+        preguntasMax = 20;
+      };
+
+
       if (random_array == null) {
-        var distinctIds = [];
-        var rand = new Random();
 
+        var num_distintos = [];
+        var random = new Random();
         for (int i = 0;;) {
-          distinctIds.add(rand.nextInt(20) + 1);
-          random_array = distinctIds.toSet().toList();
-          if (random_array.length < randomMax) {
+          num_distintos.add(random.nextInt(20) + 1); //todo: aqui cojo ese numero 20 por que solo hay 20 preguntas hechas aun en los temas
+          random_array = num_distintos.toSet().toList();
+          if (random_array.length < preguntasMax) {
             continue;
           } else {
             break;
@@ -259,82 +211,97 @@ class _monotestpageState extends State<monotestpage> {
         }
         print(random_array);
         setState(() {
-          count = 15;
+          count = preguntasMax;
+        }
+        );
+      }
+
+      if (tiempo <= 0){
+        Timer(Duration(milliseconds: 50), () {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (BuildContext context) => testResults(name: name, aciertos: aciertos, total: total_preguntas,
+                fallos: errores, t1: 0, t2: 0, t3: 0, random_array: random_array, eleccion: respuestas_usuario,
+              ),
+            ),
+                (route) => false,
+          );
         });
-      };
-      //inicio
+      }
     }
+    
     inicio();
 
-
-    List<Widget> list = List.generate(count, (int index) => pagemake(mydata: mydata, index: index, random_array: random_array));
-
-    void endtest(){
-
+    /// GENERAR PUNTOS SEGUN LAS RESPUESTAS FINALES AL TERMINAR EL TEST
+    void finTest(){
       var datos = null;
-
       for (int i = 0; i < count; i++,){
 
-        print(choicemade[i.toString()]["choice"].toString());
-        String option = choicemade[i.toString()]["choice"].toString();
+        var respuesta_seleccionada = respuestas_usuario[i.toString()]["choice"].toString();
 
-        if (option == "no"){
-          //skip
+        if (respuesta_seleccionada == "no"){
+          //skip: pregunta no contestada
         }
         else {
-            datos = mydata;
-            if (datos[2][random_array[i].toString()] ==
-                datos[1][random_array[i].toString()][option]) {
-              t1 ++;
-              marks++;
-            } else if
-            (datos[2][random_array[i].toString()] ==
-                datos[1][random_array[i].toString()]["a"]) {
-              fails++;
-            } else if
-            (datos[2][random_array[i].toString()] ==
-                datos[1][random_array[i].toString()]["b"]) {
-              fails++;
-            } else if
-            (datos[2][random_array[i].toString()] ==
-                datos[1][random_array[i].toString()]["c"]) {
-              fails++;
-            } else if (datos[2][random_array[i].toString()] ==
-                datos[1][random_array[i].toString()]["d"]) {
-              fails++;
 
-          }
-          }
-      }
-      print(marks);
-      print(fails);
+          if(multiple==false){datos = mydata;}
+          else{
+            if(i <= 3){
+              datos=mydata;
+            }
+            if(i > 3){
+              datos=mydata2;
+            }
+          };
+
+
+            var respuesta_correcta = datos[2][random_array[i].toString()];
+            var respuestas = datos[1][random_array[i].toString()];
+
+            if (respuesta_correcta == respuestas[respuesta_seleccionada]) {
+              puntos_tema_1++;
+              aciertos++;
+            } else if
+            (respuesta_correcta == respuestas["a"]) {
+              errores++;
+            } else if
+            (respuesta_correcta == respuestas["b"]) {
+              errores++;
+            } else if
+            (respuesta_correcta == respuestas["c"]) {
+              errores++;
+            } else if (respuesta_correcta == respuestas["d"]) {
+              errores++;
+            }
+          }}
 
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
           builder: (BuildContext context) => testResults(
             name: name,
-            aciertos: marks,
-            total: randomMax,
-            fallos: fails,
+            aciertos: aciertos,
+            total: total_preguntas,
+            fallos: errores,
             t1: 0,
             t2: 0,
             t3: 0,
             random_array: random_array,
-            eleccion: choicemade,
+            eleccion: respuestas_usuario,
           ),
-        ),
+        ), /// IR A RESULTADOS
             (route) => false,
       );
-
     }
+
+    List<Widget> list = List.generate(count, (int index) => pagemake(mydata: mydata, mydata2: mydata2, index: index, random_array: random_array, multiple: multiple));
 
     return WillPopScope(
         onWillPop: () {
           return showDialog(
               context: context,
               builder: (context) => AlertDialog(
-
                 content: Text("¿Abandonar el examen?"),
                 actions: <Widget>[
                   FlatButton(
@@ -372,21 +339,19 @@ class _monotestpageState extends State<monotestpage> {
                   ),
 
                 ],
-              ));
+              )
+          );
         },
     child: Scaffold(
       //backgroundColor: guardia,
-
       body: Center(
         child: Material(
          // color: guardia,
           child: Container(
-
             decoration: BoxDecoration(
-              color: guardia,
+              color: kguardiacivil,
               image: DecorationImage(
                 image: AssetImage("images/bg2.png"),
-
                 fit: BoxFit.cover,
               ),
             ),
@@ -472,7 +437,7 @@ class _monotestpageState extends State<monotestpage> {
                     child: Container(
                       alignment: Alignment.center,
                       child: Text(
-                        answered.toString() + "/100",
+                        contestadas.toString() + "/100",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
@@ -491,12 +456,11 @@ class _monotestpageState extends State<monotestpage> {
                               shape: BoxShape.circle,
                               color: Colors.grey[300],
                               border: Border.all(
-
-                                color: guardia,
+                                color: kguardiacivil,
                                 width: 3,
                               )),
                           child: Text(
-                            min.toString(),
+                            tiempo.toString(),
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.grey[600],
@@ -519,7 +483,7 @@ class _monotestpageState extends State<monotestpage> {
                           isReverse: true,
                           onComplete: () {
                             setState(() {
-                              min--;
+                              tiempo--;
                             });
                           },
                         )
@@ -538,7 +502,7 @@ class _monotestpageState extends State<monotestpage> {
                                 fontSize: 16,
                               ),
                             ),
-                            onPressed: () { endtest(); }),
+                            onPressed: () { finTest(); }),
                       ))
                 ],
               ), //barra bot
@@ -548,198 +512,138 @@ class _monotestpageState extends State<monotestpage> {
       ),
       )
     ),
-    );
-          //  PRINCIPAL UI
+    );/// CONFIRMACION POR SI PULSAS ATRÁS EN EL MOVIL.
   }
 }
 
 class pagemake extends StatefulWidget {
   final mydata;
+  final mydata2;
   int index;
   var random_array;
+  var multiple;
 
   pagemake(
       {Key key,
+        @required this.multiple,
         @required this.mydata,
+        @required this.mydata2,
         @required this.index,
         @required this.random_array});
 
   @override
   State<StatefulWidget> createState() =>
-      _pagemake(mydata: mydata, index: index, random_array: random_array);
+      _pagemake(multiple: multiple, mydata: mydata, mydata2: mydata2, index: index, random_array: random_array);
 }
 
 class _pagemake extends State<pagemake> {
   final mydata;
+  final mydata2;
   int index;
   var random_array;
-
+  var multiple;
 
   _pagemake(
       {Key key,
         @required this.mydata,
+        this.mydata2,
         @required this.index,
-        @required this.random_array});
+        @required this.random_array,
+        @required this.multiple});
 
   @override
-  Widget space(int flex) {
-    return Expanded(flex: flex, child: Container());
-  } //espaciador
-
-
-
   Widget build(BuildContext context) {
     var screen = MediaQuery.of(context).size;
     var wid = screen.width;
     var hei = screen.height;
     var datos;
-    datos = mydata;
+
+    if (multiple == false){
+      datos = mydata;
+    }else{
+      if(index <= 3){
+        datos = mydata;
+      }else{
+        datos = mydata2;
+      }
+    }
 
 
-    void checkanswer(String option) {
+    /// CORRECCION VISUAL DE LOS BOTONES DE RESPUESTA  todo: sacar estas funciones de aqui y que el test mono y multi los usen
+    void corregirMostrar(String respuesta_seleccionada) {
+      
+      respuestas_usuario[index.toString()]["choice"] = respuesta_seleccionada;// añade la respuesta elegida a la lista de respuestas global
+      var respuesta_correcta = datos[2][random_array[index].toString()];
+      var respuestas = datos[1][random_array[index].toString()];
 
-      choicemade[index.toString()]["choice"]=option;
-      print(choicemade);
+      //marca en gris las respuestas previo a la correccion
+      opciones_respuesta["$index"]["a"] = color_desactivado;
+      opciones_respuesta["$index"]["b"] = color_desactivado;
+      opciones_respuesta["$index"]["c"] = color_desactivado;
+      opciones_respuesta["$index"]["d"] = color_desactivado;
 
-
-
-      if (datos[2][random_array[index].toString()] ==
-          datos[1][random_array[index].toString()][option]) {
-        btnmap["$index"]["a"] = kTextoff;
-        btnmap["$index"]["b"] = kTextoff;
-        btnmap["$index"]["c"] = kTextoff;
-        btnmap["$index"]["d"] = kTextoff;
-
-        colortoshow = kTextCorrect;
-
-      } else if (datos[2][random_array[index].toString()] ==
-          datos[1][random_array[index].toString()]["a"]) {
-        btnmap["$index"]["a"] = kTextCorrect;
-        btnmap["$index"]["b"] = kTextoff;
-        btnmap["$index"]["c"] = kTextoff;
-        btnmap["$index"]["d"] = kTextoff;
-        colortoshow = kTextWrong;
-
-      } else if (datos[2][random_array[index].toString()] ==
-          datos[1][random_array[index].toString()]["b"]) {
-        btnmap["$index"]["b"] = kTextCorrect;
-        btnmap["$index"]["a"] = kTextoff;
-        btnmap["$index"]["c"] = kTextoff;
-        btnmap["$index"]["d"] = kTextoff;
-        colortoshow = kTextWrong;
-
-      } else if (datos[2][random_array[index].toString()] ==
-          datos[1][random_array[index].toString()]["c"]) {
-        btnmap["$index"]["c"] = kTextCorrect;
-        btnmap["$index"]["b"] = kTextoff;
-        btnmap["$index"]["a"] = kTextoff;
-        btnmap["$index"]["d"] = kTextoff;
-        colortoshow = kTextWrong;
-
-      } else if (datos[2][random_array[index].toString()] ==
-          datos[1][random_array[index].toString()]["d"]) {
-        btnmap["$index"]["d"] = kTextCorrect;
-        btnmap["$index"]["b"] = kTextoff;
-        btnmap["$index"]["c"] = kTextoff;
-        btnmap["$index"]["a"] = kTextoff;
-
-        colortoshow = kTextWrong;
+      //comprueba si hay acierto o busca cual hubiera sido la correcta y la repinta
+      if (respuesta_correcta == respuestas[respuesta_seleccionada]) {
+        color_respuesta_elegida = color_correcto;
+      } else if (respuesta_correcta == respuestas["a"]) {
+        opciones_respuesta["$index"]["a"] = color_correcto;
+        color_respuesta_elegida = color_error;
+      } else if (respuesta_correcta == respuestas["b"]) {
+        opciones_respuesta["$index"]["b"] = color_correcto;
+        color_respuesta_elegida = color_error;
+      } else if (respuesta_correcta == respuestas["c"]) {
+        opciones_respuesta["$index"]["c"] = color_correcto;
+        color_respuesta_elegida = color_error;
+      } else if (respuesta_correcta == respuestas["d"]) {
+        opciones_respuesta["$index"]["d"] = color_correcto;
+        color_respuesta_elegida = color_error;
       }
 
       setState(() {
-
-        btnmap["$index"][option] = colortoshow;
-        btnmap["$index"]["s"] = true;
-        btnmap["_$index"][option] = Colors.grey[800].withOpacity(0.04);
-
+        opciones_respuesta["$index"][respuesta_seleccionada] = color_respuesta_elegida;
+        opciones_respuesta["$index"]["s"] = true;  //controla que la serie de botones sea pulsable o no.
+        opciones_respuesta["_$index"][respuesta_seleccionada] = Colors.grey[800].withOpacity(0.04);
       });
-
     }
-    void checkunreveal(String option) {
+    /// CORRECCION OCULTA DE LOS BOTONES DE RESPUESTA  todo: sacar estas funciones de aqui y que el test mono y multi los usen
+    void corregirOcultar(String respuesta_seleccionada) {
 
-      choicemade[index.toString()]["choice"]=option;
-      print(choicemade);
-
-
-      if (datos[2][random_array[index].toString()] ==
-          datos[1][random_array[index].toString()][option]) {
-        btnmap["$index"]["a"] = kTextoff;
-        btnmap["$index"]["b"] = kTextoff;
-        btnmap["$index"]["c"] = kTextoff;
-        btnmap["$index"]["d"] = kTextoff;
-
-        colortoshow = kText;
-
-      } else if (datos[2][random_array[index].toString()] ==
-          datos[1][random_array[index].toString()]["a"]) {
-        btnmap["$index"]["a"] = kTextoff;
-        btnmap["$index"]["b"] = kTextoff;
-        btnmap["$index"]["c"] = kTextoff;
-        btnmap["$index"]["d"] = kTextoff;
-        colortoshow = kText;
-
-      } else if (datos[2][random_array[index].toString()] ==
-          datos[1][random_array[index].toString()]["b"]) {
-        btnmap["$index"]["b"] = kTextoff;
-        btnmap["$index"]["a"] = kTextoff;
-        btnmap["$index"]["c"] = kTextoff;
-        btnmap["$index"]["d"] = kTextoff;
-        colortoshow = kText;
-
-      } else if (datos[2][random_array[index].toString()] ==
-          datos[1][random_array[index].toString()]["c"]) {
-        btnmap["$index"]["c"] = kTextoff;
-        btnmap["$index"]["b"] = kTextoff;
-        btnmap["$index"]["a"] = kTextoff;
-        btnmap["$index"]["d"] = kTextoff;
-        colortoshow = kText;
-
-      } else if (datos[2][random_array[index].toString()] ==
-          datos[1][random_array[index].toString()]["d"]) {
-        btnmap["$index"]["d"] = kTextoff;
-        btnmap["$index"]["b"] = kTextoff;
-        btnmap["$index"]["c"] = kTextoff;
-        btnmap["$index"]["a"] = kTextoff;
-
-        colortoshow = kText;
-      }
+      respuestas_usuario[index.toString()]["choice"] = respuesta_seleccionada;
+      color_respuesta_elegida = color_standard;
+      
+      opciones_respuesta["$index"]["a"] = color_desactivado;
+      opciones_respuesta["$index"]["b"] = color_desactivado;
+      opciones_respuesta["$index"]["c"] = color_desactivado;
+      opciones_respuesta["$index"]["d"] = color_desactivado;
 
       setState(() {
-
-        btnmap["$index"][option] = colortoshow;
-        btnmap["_$index"]["a"] = Colors.grey[800].withOpacity(0);
-        btnmap["_$index"]["b"] = Colors.grey[800].withOpacity(0);
-        btnmap["_$index"]["c"] = Colors.grey[800].withOpacity(0);
-        btnmap["_$index"]["d"] = Colors.grey[800].withOpacity(0);
-        btnmap["_$index"][option] = Colors.grey[800].withOpacity(0.04);
-
+        opciones_respuesta["$index"][respuesta_seleccionada] = color_respuesta_elegida;
+        opciones_respuesta["_$index"]["a"] = Colors.grey[800].withOpacity(0);
+        opciones_respuesta["_$index"]["b"] = Colors.grey[800].withOpacity(0);
+        opciones_respuesta["_$index"]["c"] = Colors.grey[800].withOpacity(0);
+        opciones_respuesta["_$index"]["d"] = Colors.grey[800].withOpacity(0);
+        opciones_respuesta["_$index"][respuesta_seleccionada] = Colors.grey[800].withOpacity(0.04);
       });
     }
 
-    void correct(String option){
-      print(autocorrect);
-      if(autocorrect == true){
-        checkanswer(option);
-      }
-      else{
-        checkunreveal(option);
-      }
+    void corregir(String respuesta_seleccionada){
+      if (revelar_correcta == true) {corregirMostrar(respuesta_seleccionada);}
+      else {corregirOcultar(respuesta_seleccionada); }
     };
 
-      Widget choicetab(String option) {
+      ///WIDGET DE BOTON DE RESPUESTA
+      Widget botonRespuesta(String opcion) {
         var screen = MediaQuery.of(context).size;
         var wid = screen.width;
         var hei = screen.height;
-
-
         return AbsorbPointer(
-          absorbing: btnmap["$index"]["s"],
+          absorbing: opciones_respuesta["$index"]["s"], // boton activo: true/false
           child: MaterialButton(
             padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
             height: hei / 20,
-            child: Container(   // botones
+            child: Container(  
               decoration: BoxDecoration(
-                  color: btnmap["_$index"][option],
+                  color: opciones_respuesta["_$index"][opcion],
                   borderRadius: BorderRadius.all(Radius.circular(15))),
               width: wid,
               constraints: BoxConstraints(
@@ -748,24 +652,21 @@ class _pagemake extends State<pagemake> {
 
               alignment: Alignment.centerLeft,
               child: Text(
-                option + ")   " + datos[1][random_array[index].toString()][option],
+                opcion + ")   " + datos[1][random_array[index].toString()][opcion],
                 style: TextStyle(
                     fontSize: 15.0,
-                    color: btnmap["$index"][option]
+                    color: opciones_respuesta["$index"][opcion]
                 ),
                 textAlign: TextAlign.start,
               ),
               padding: EdgeInsets.fromLTRB(12, 0, 5, 0),
-
             ),
-            onPressed: () => correct(option),
+            onPressed: () => corregir(opcion),
           ),
         );
       } //botones de respuestas
 
-
       return Padding(
-
           padding: EdgeInsets.all(0),
           child: Container(
             width: wid,
@@ -814,8 +715,7 @@ class _pagemake extends State<pagemake> {
                       height: hei,
                       color: Colors.grey[300],
                       child: Text(
-                        datos[0][random_array[index].toString()].toString(),
-                        //json pregunta
+                        datos[0][random_array[index].toString()].toString(), //json pregunta
                         style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.bold,
@@ -846,8 +746,7 @@ class _pagemake extends State<pagemake> {
                                   height: 22,
                                 ),
                                 Text(
-                                  " " + datos[0]["0"].toString(),
-                                  //json nombre tema
+                                  " " + datos[0]["0"].toString(), //json nombre tema
                                   style: TextStyle(
                                     fontSize: 12,
                                     color: Colors.grey[600],
@@ -861,25 +760,25 @@ class _pagemake extends State<pagemake> {
                     )),
                 space(2),
                 Expanded(
-                    flex: 50, //opciones (choicetab)
+                    flex: 50, //botones de respuesta
                     child: Container(
                       width: wid / 1.00,
                       height: hei,
                       child: ListView(
                         children: <Widget>[
-                          choicetab("a"),
+                          botonRespuesta("a"),
                           Divider(
                             thickness: 1.5,
                           ),
-                          choicetab("b"),
+                          botonRespuesta("b"),
                           Divider(
                             thickness: 1.5,
                           ),
-                          choicetab("c"),
+                          botonRespuesta("c"),
                           Divider(
                             thickness: 1.5,
                           ),
-                          choicetab("d"),
+                          botonRespuesta("d"),
                         ],
                       ),
                     )),

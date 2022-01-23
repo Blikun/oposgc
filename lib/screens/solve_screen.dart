@@ -27,12 +27,11 @@ class getsolve extends StatelessWidget {
   String jsonfile2;
   String jsonfile3;
 
-
   setasset2() {
     Map<String, String> nameArray = {
       "derechos": "assets/derechoshumanos.json",
       "Examen": "assets/Examen.json",
-      "penal": "assets/penal.json",
+      "penal": "assets/derechopenal.json",
       "ingles": "assets/ingles.json",
       "Constitución Española": "assets/constitucion.json",
     };

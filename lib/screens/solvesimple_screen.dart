@@ -30,7 +30,7 @@ class getsolvesimple extends StatelessWidget {
     Map<String, String> nameArray = {
       "derechoshumanos": "assets/derechoshumanos.json",
       "examen": "assets/Examen.json",
-      "derechopenal": "assets/penal.json",
+      "derechopenal": "assets/derechopenal.json",
       "ingles": "assets/ingles.json",
       "igualdad": "assets/igualdad.json",
     };

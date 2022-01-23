@@ -7,8 +7,9 @@ import '../tests/mono_test.dart';
 
 /// WIDGET DE TARJETAS POR TEMAS DEL MENU PRINCIPAL USADO EN HOME_SCREEN  ///
 
-class carta extends StatefulWidget {
+class tarjetaTema extends StatefulWidget {
   @override
+  var id;
   String image;
   String title;
   String tema;
@@ -19,11 +20,12 @@ class carta extends StatefulWidget {
   double record;
 
 
-  carta({Key key, this.image, this.title, this.tema, this.auth, this.rating}) : super(key: key);
-  _cartaState createState() => _cartaState(image,title,tema,auth,rating);
+  tarjetaTema({Key key, this.image, this.title, this.tema, this.auth, this.rating, this.id}) : super(key: key);
+  _tarjetaTemaState createState() => _tarjetaTemaState(image,title,tema,auth,rating,id);
 }
 
-class _cartaState extends State<carta> {
+class _tarjetaTemaState extends State<tarjetaTema> {
+  var id;
   String image;
   String title;
   String tema;
@@ -33,7 +35,7 @@ class _cartaState extends State<carta> {
   Function pressRead;
   double record;
 
-  _cartaState(image,title,tema,auth,rating);
+  _tarjetaTemaState(image,title,tema,auth,rating,id);
   @override
   Widget build(BuildContext context) {
     return Container();
@@ -42,6 +44,7 @@ class _cartaState extends State<carta> {
 
 
 class TarjetaTema extends StatelessWidget {
+  final int id;
   final String portada;
   final String nombre_tema;
   final String tema;
@@ -54,6 +57,7 @@ class TarjetaTema extends StatelessWidget {
 
   TarjetaTema({
     Key key,
+    this.id,
     this.portada,
     this.nombre_tema,
     this.tema,
@@ -166,8 +170,8 @@ class TarjetaTema extends StatelessWidget {
                                               onPressed: () {
                                                 Navigator.of(context)
                                                     .pushReplacement(
-                                                  MaterialPageRoute( /// NAVEGADOR A MONO_TEST PASANDO EL "CORREGIR EN DIRECTO" ///
-                                                    builder: (context) => monotest(tema, "reveal"),
+                                                  MaterialPageRoute( /// NAVEGADOR A MONO_TEST PASANDO nombretema / corregirendirecto / multiplestemas ///
+                                                    builder: (context) => monotest(tema,id, true, true),
                                                   ),
                                                 );
                                               },
@@ -188,15 +192,15 @@ class TarjetaTema extends StatelessWidget {
                                               onPressed: () {
                                                 Navigator.of(context)
                                                     .pushReplacement(
-                                                  MaterialPageRoute(/// NAVEGADOR A MONO_TEST PASANDO EL "CORREGIR AL FINAL" ///
-                                                    builder: (context) => monotest(tema, "unreveal"),
+                                                  MaterialPageRoute(/// NAVEGADOR A MONO_TEST PASANDO nombretema / corregirluego / multiplestemas //
+                                                    builder: (context) => monotest(tema,id, false, false),
                                                   ),
                                                 );
                                               },
                                               padding: EdgeInsets.fromLTRB(
                                                   0, 0, 50, 0),
                                               child: Text(
-                                                'Corrección al finalizar',
+                                                'Corregir al finalizar',
                                                 style: TextStyle(
                                                   fontSize: 15.0,
                                                   color: Color.fromARGB(
